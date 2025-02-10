@@ -41,7 +41,7 @@ const ItemEntry = ({
   onPriceChange = () => {},
 }: ItemEntryProps) => {
   return (
-    <Card className="p-3 sm:p-4 mb-4">
+    <Card className="p-3 sm:p-4 mb-4 overflow-hidden">
       <div className="flex items-center gap-2 sm:gap-4">
         <div className="flex-1">
           <Input
@@ -69,7 +69,10 @@ const ItemEntry = ({
           <X className="h-4 w-4" />
         </Button>
       </div>
-      <div className="flex gap-2 mt-2 overflow-x-auto pb-2 max-w-full scrollbar-thin scrollbar-thumb-primary/10 scrollbar-track-transparent">
+      <div
+        className="flex gap-2 mt-2 overflow-x-auto pb-2 max-w-full scrollbar-thin scrollbar-thumb-primary/10 scrollbar-track-transparent"
+        style={{ maxWidth: "calc(100% - 16px)", margin: "0 8px" }}
+      >
         <TooltipProvider>
           {diners.map((diner) => (
             <Tooltip key={diner.id}>

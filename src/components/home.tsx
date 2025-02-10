@@ -12,9 +12,9 @@ interface Item {
 }
 
 const Home = () => {
-  const [billTotal, setBillTotal] = useState(0);
-  const [taxPercentage, setTaxPercentage] = useState(0);
-  const [tipPercentage, setTipPercentage] = useState(0);
+  const [billTotal, setBillTotal] = useState<number>();
+  const [taxAmount, setTaxAmount] = useState<number>();
+  const [tipAmount, setTipAmount] = useState<number>();
   const [numberOfDiners, setNumberOfDiners] = useState(0);
   const [names, setNames] = useState<string[]>([]);
   const [items, setItems] = useState<Item[]>([]);
@@ -62,8 +62,8 @@ const Home = () => {
 
   const calculateTotals = () => {
     const subtotal = items.reduce((sum, item) => sum + item.price, 0);
-    const tax = (subtotal * taxPercentage) / 100;
-    const tip = (subtotal * tipPercentage) / 100;
+    const tax = taxAmount || 0;
+    const tip = tipAmount || 0;
     const total = subtotal + tax + tip;
 
     const people = Array.from({ length: numberOfDiners }, (_, i) => {
@@ -112,12 +112,12 @@ const Home = () => {
           <div className="space-y-8">
             <BillInputSection
               billTotal={billTotal}
-              taxPercentage={taxPercentage}
-              tipPercentage={tipPercentage}
+              taxAmount={taxAmount}
+              tipAmount={tipAmount}
               numberOfDiners={numberOfDiners}
               onBillTotalChange={setBillTotal}
-              onTaxPercentageChange={setTaxPercentage}
-              onTipPercentageChange={setTipPercentage}
+              onTaxAmountChange={setTaxAmount}
+              onTipAmountChange={setTipAmount}
               onNumberOfDinersChange={handleAddDiner}
               onRemoveDiner={handleRemoveDiner}
             />

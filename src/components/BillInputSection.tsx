@@ -8,24 +8,24 @@ import { Plus, Minus } from "lucide-react";
 
 interface BillInputSectionProps {
   billTotal?: number;
-  taxPercentage?: number;
-  tipPercentage?: number;
+  taxAmount?: number;
+  tipAmount?: number;
   numberOfDiners?: number;
   onBillTotalChange?: (value: number) => void;
-  onTaxPercentageChange?: (value: number) => void;
-  onTipPercentageChange?: (value: number) => void;
+  onTaxAmountChange?: (value: number) => void;
+  onTipAmountChange?: (value: number) => void;
   onNumberOfDinersChange?: () => void;
   onRemoveDiner?: () => void;
 }
 
 const BillInputSection = ({
-  billTotal = 0,
-  taxPercentage = 10,
-  tipPercentage = 15,
+  billTotal,
+  taxAmount,
+  tipAmount,
   numberOfDiners = 0,
   onBillTotalChange = () => {},
-  onTaxPercentageChange = () => {},
-  onTipPercentageChange = () => {},
+  onTaxAmountChange = () => {},
+  onTipAmountChange = () => {},
   onNumberOfDinersChange = () => {},
   onRemoveDiner = () => {},
 }: BillInputSectionProps) => {
@@ -43,7 +43,7 @@ const BillInputSection = ({
               value={billTotal}
               onChange={(e) => onBillTotalChange(Number(e.target.value))}
               className="pl-7"
-              placeholder="0.00"
+              placeholder="Enter bill amount"
             />
           </div>
         </div>
@@ -56,10 +56,10 @@ const BillInputSection = ({
             <Input
               id="tax"
               type="number"
-              value={taxPercentage}
-              onChange={(e) => onTaxPercentageChange(Number(e.target.value))}
+              value={taxAmount}
+              onChange={(e) => onTaxAmountChange(Number(e.target.value))}
               className="pl-7"
-              placeholder="0.00"
+              placeholder="Enter tax amount"
             />
           </div>
         </div>
@@ -72,10 +72,10 @@ const BillInputSection = ({
             <Input
               id="tip"
               type="number"
-              value={tipPercentage}
-              onChange={(e) => onTipPercentageChange(Number(e.target.value))}
+              value={tipAmount}
+              onChange={(e) => onTipAmountChange(Number(e.target.value))}
               className="pl-7"
-              placeholder="0.00"
+              placeholder="Enter tip amount"
             />
           </div>
         </div>
@@ -104,25 +104,23 @@ const BillInputSection = ({
         <div className="pt-4 border-t">
           <div className="flex justify-between text-sm">
             <span>Subtotal:</span>
-            <span>${billTotal.toFixed(2)}</span>
+            <span>${(billTotal || 0).toFixed(2)}</span>
           </div>
           <div className="flex justify-between text-sm mt-1">
-            <span>Tax ({taxPercentage}%):</span>
-            <span>${((billTotal * taxPercentage) / 100).toFixed(2)}</span>
+            <span>Tax:</span>
+            <span>${(taxAmount || 0).toFixed(2)}</span>
           </div>
           <div className="flex justify-between text-sm mt-1">
-            <span>Tip ({tipPercentage}%):</span>
-            <span>${((billTotal * tipPercentage) / 100).toFixed(2)}</span>
+            <span>Tip:</span>
+            <span>${(tipAmount || 0).toFixed(2)}</span>
           </div>
           <div className="flex justify-between font-medium mt-2 pt-2 border-t">
             <span>Total:</span>
             <span>
               $
-              {(
-                billTotal +
-                (billTotal * taxPercentage) / 100 +
-                (billTotal * tipPercentage) / 100
-              ).toFixed(2)}
+              {((billTotal || 0) + (taxAmount || 0) + (tipAmount || 0)).toFixed(
+                2,
+              )}
             </span>
           </div>
         </div>
